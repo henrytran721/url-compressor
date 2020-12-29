@@ -43,4 +43,17 @@ router.post('/api', async (req, res) => {
         res.send({invalidUrl: 'Invalid Url'});
     }
 })
+
+router.post('/stats', async (req, res) => {
+    const shortUrl = req.body.searchUrl;
+    const foundEntry = await UrlInfo.find({ shortUrl });
+    
+    if(foundEntry.length) {
+        res.send(foundEntry)
+    } else {
+        res.send({invalidUrl: 'No Compressed Url found. Please try again.'})
+    }
+})
+
+
 module.exports = router;
